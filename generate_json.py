@@ -11,7 +11,7 @@ GENERATED_DATA_CSV = './data/generated_data.csv'
 JSON_FILE_LIST = "./type3time_processed.txt"
 
 folder_dict = {"p": "physical", "n": "network", "v": "virtual"}
-ori_file_count = 10
+ori_file_count = 500
 
 
 def get_json_path(coulumn):
@@ -70,6 +70,9 @@ def update_value(json_object, val, path_list, depth=0):
                 json_object[i][key] = chdict
                 break
     else:
+        # bug fix
+        if key == 'computes0':
+            key = key[:-1]
         chdict = json_object[key]
         chdict = update_value(chdict, val, path_list, depth + 1)
         json_object[key] = chdict
@@ -89,13 +92,13 @@ def get_columns_dict(columns):
 
 
 if __name__ == '__main__':
-    # init file_list
+    # init file_list e.g."./type3time_processed.txt"
     f = open(JSON_FILE_LIST, "r")
     file_list = f.readlines()
     # file_list[0][:19]
     f.close()
 
-    # load generator data
+    # load generator data e.g. './data/generated_data.csv'
     df_generator = pd.read_csv('%s' % GENERATED_DATA_CSV)
     df_generator = df_generator.drop(columns=['Unnamed: 0'])
     print(df_generator.shape)
@@ -114,5 +117,5 @@ if __name__ == '__main__':
             for column in file_columns:
                 json_object = change_value(json_object, column[3:], int(df_generator.iloc[idx][column]))
 
-            write_to_json(DATA_ITU_TYPE_3_GENERATED + file_type + '/' + file_name[:12] + str(idx) + '.json',
+            write_to_json(DATA_ITU_TYPE_3_GENERATED + file_type + '/' + file_name[:13] + str(idx // ori_file_count) + '.json',
                           json_object)
