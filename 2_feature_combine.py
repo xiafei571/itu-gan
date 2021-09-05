@@ -9,7 +9,7 @@ import pandas as pd
 # CSV_DIFF_TEST_SET: ./csv/diff_testset.csv
 
 
-train_path = './dataset/csv-for-learning/gan4/'
+train_path = './dataset/csv-for-learning-top25/gan0/'
 dataset_path = './csv/dataset.csv'
 
 
@@ -75,7 +75,7 @@ def main():
 
     train_n_files = [train_path + x for x in
                      ['20200629.n.csv', '20200630.n.csv', '20200702.n.csv', '20200703.n.csv',
-                      '20200704.n.csv',]]
+                      '20200704.n.csv']]
     train_v_files = [train_path + x for x in
                      ['20200629.v.csv', '20200630.v.csv', '20200702.v.csv', '20200703.v.csv',
                       '20200704.v.csv']]
