@@ -34,7 +34,7 @@ def write_to_json(file_path, json_data):
 
 
 def change_value(json_object, column, val):
-    print('column:', column)
+    # print('column:', column)
     path_list = column.split("/")
 
     new_obj = update_value(json_object, val, path_list, depth=0)
@@ -100,7 +100,10 @@ if __name__ == '__main__':
 
     # load generator data e.g. './data/generated_data.csv'
     df_generator = pd.read_csv('%s' % GENERATED_DATA_CSV)
-    df_generator = df_generator.drop(columns=['Unnamed: 0'])
+    try:
+        df_generator = df_generator.drop(columns=['Unnamed: 0'])
+    except Exception:
+        print('column Unnamed: 0 already deleted')
     print(df_generator.shape)
 
     column_dict = get_columns_dict(df_generator.columns)

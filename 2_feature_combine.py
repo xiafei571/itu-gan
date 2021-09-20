@@ -9,8 +9,8 @@ import pandas as pd
 # CSV_DIFF_TEST_SET: ./csv/diff_testset.csv
 
 
-train_path = './dataset/csv-for-learning-top25/gan0/'
-dataset_path = './csv/dataset.csv'
+train_path = './dataset/type9/csv-for-learning-top50/gan1/'
+dataset_path = './csv/type9/top50/dataset1.csv'
 
 
 # Combining three types of csv.
@@ -18,9 +18,7 @@ def df_combine(train_n_files, train_v_files, train_p_files):
     li_n = []
     li_v = []
     li_p = []
-    li_test_n = []
-    li_test_v = []
-    li_test_p = []
+
     # train
     for filename in train_n_files:
         print('read_csv network:', filename)
@@ -66,27 +64,21 @@ def df_combine(train_n_files, train_v_files, train_p_files):
 
 
 def main():
-    # train_n_files = glob.glob(train_path + "*.n.csv")
-    # train_v_files = glob.glob(train_path + "*.v.csv")
-    # test_n_files = glob.glob(train_path + "*.p.csv")
-    # test_n_files = glob.glob(test_path + "*.n.csv")
-    # test_v_files = glob.glob(test_path + "*.v.csv")
-    # test_p_files = glob.glob(test_path + "*.p.csv")
 
     train_n_files = [train_path + x for x in
-                     ['20200629.n.csv', '20200630.n.csv', '20200702.n.csv', '20200703.n.csv',
-                      '20200704.n.csv']]
+                     ['20200630.n.csv', '20200701.n.csv', '20200702.n.csv', '20200703.n.csv',
+                      '20200704.n.csv', '20200705.n.csv', '20200706.n.csv']]
     train_v_files = [train_path + x for x in
-                     ['20200629.v.csv', '20200630.v.csv', '20200702.v.csv', '20200703.v.csv',
-                      '20200704.v.csv']]
+                     ['20200630.v.csv', '20200701.v.csv', '20200702.v.csv', '20200703.v.csv',
+                      '20200704.v.csv', '20200705.v.csv', '20200706.v.csv']]
     train_p_files = [train_path + x for x in
-                     ['20200629.p.csv', '20200630.p.csv', '20200702.p.csv', '20200703.p.csv',
-                      '20200704.p.csv']]
+                     ['20200630.p.csv', '20200701.p.csv', '20200702.p.csv', '20200703.p.csv',
+                      '20200704.p.csv', '20200705.p.csv', '20200706.p.csv']]
 
 
     dataset = df_combine(train_n_files, train_v_files, train_p_files)
     print('save to csv..')
-    dataset.to_csv(dataset_path)
+    dataset.to_csv(dataset_path, index=False)
     print('dataset:')
     print(dataset.shape)
 

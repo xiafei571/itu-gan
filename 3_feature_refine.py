@@ -9,8 +9,8 @@ import pandas as pd
 # CSV_DIFF_TEST_SET: ./csv/diff_testset.csv
 
 
-dataset_path = './csv/dataset.csv'
-diff_dataset_path = './csv/diff_dataset.csv'
+dataset_path = './csv/type9/top50/dataset1.csv'
+diff_dataset_path = './csv/type9/top50/diff_dataset1.csv'
 
 
 def get_diff_dataset(dataset, X_train, type=0):
@@ -62,7 +62,7 @@ def main():
     # diff_testset.drop(columns=['Unnamed: 0'], inplace=True)
 
     print('writing to csv..')
-    diff_dataset.to_csv(diff_dataset_path)
+    diff_dataset.to_csv(diff_dataset_path, index=False)
     print('diff_dataset:', diff_dataset.shape)
 
 
