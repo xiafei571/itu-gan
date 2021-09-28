@@ -9,8 +9,8 @@ import pandas as pd
 # CSV_DIFF_TEST_SET: ./csv/diff_testset.csv
 
 
-train_path = './dataset/type9/csv-for-learning-top50/gan1/'
-dataset_path = './csv/type9/top50/dataset1.csv'
+train_path = './dataset/type9/csv-for-learning-top50/gan4/'
+dataset_path = './csv/type9/top50/dataset4.csv'
 
 
 # Combining three types of csv.
