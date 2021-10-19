@@ -77,7 +77,7 @@ def sine_data_generation (no, seq_len, dim):
   return data
     
 
-def real_data_loading (data_name, seq_len, mix=True):
+def real_data_loading (data_name, seq_len, mix=True, data_dir=None):
   """Load and preprocess real-world datasets.
   
   Args:
@@ -88,7 +88,13 @@ def real_data_loading (data_name, seq_len, mix=True):
     - data: preprocessed data.
   """  
 
-  ori_data = np.loadtxt('data/'+data_name+'.csv', delimiter = ",",skiprows = 1)
+  data_path = ''
+  if data_dir == None:
+    data_path = 'data/'+data_name+'.csv'
+  else:
+    data_path = data_dir+data_name+'.csv'
+
+  ori_data = np.loadtxt(data_path, delimiter = ",",skiprows = 1)
         
   # Flip the data to make chronological data
   # ori_data = ori_data[::-1]
@@ -103,12 +109,15 @@ def real_data_loading (data_name, seq_len, mix=True):
   for i in range(0, len(ori_data) - seq_len):
     _x = ori_data[i:i + seq_len]
     temp_data.append(_x)
-        
+  # for i in range(0, len(ori_data) - seq_len):
+  #   _x = ori_data[i*seq_len:(i+1)*seq_len]
+  #   temp_data.append(_x)
+
   # Mix the datasets (to make it similar to i.i.d)
   if mix:
     idx = np.random.permutation(len(temp_data))
   else:
-    idx = np.arange(0,len(temp_data))
+    idx = np.arange(0, len(temp_data))
 
   data = []
   for i in range(len(temp_data)):

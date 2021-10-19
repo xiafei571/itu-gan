@@ -9,8 +9,8 @@ import pandas as pd
 # CSV_DIFF_TEST_SET: ./csv/diff_testset.csv
 
 
-dataset_path = './csv/type9/top50/dataset4.csv'
-diff_dataset_path = './csv/type9/top50/diff_dataset4.csv'
+dataset_path = './data/generated_all_data.csv'
+diff_dataset_path = './csv/all/diff_dataset_type11_3.csv'
 
 
 def get_diff_dataset(dataset, X_train, type=0):
