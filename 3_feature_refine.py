@@ -10,29 +10,30 @@ import pandas as pd
 
 
 dataset_path = './data/generated_all_data.csv'
-diff_dataset_path = './csv/all/diff_dataset_type11_3.csv'
+diff_dataset_path = './csv/all/diff_dataset_type57.csv'
 
 
-def get_diff_dataset(dataset, X_train, type=0):
+def get_diff_dataset(dataset, X_train, seq_len=5):
     diff_dataset = pd.DataFrame(columns=dataset.columns)
-    cur_type = type # useless, can delete
-    start_index = 0
 
     for index, row in dataset.iterrows():
 
-        if index == 0:
-            pass
+        cur_type = row[-1]
 
-        row_type = row[-1]
-
-        if (index + 1) % 5 == 0:
-            end_index = index
-            diff_df = X_train.loc[[start_index, end_index]].diff().loc[[end_index]]
+        if index % (seq_len * (seq_len - 1)) == 0:
+            end_index = index + seq_len - 1
+            diff_df = X_train.loc[[index, end_index]].diff().loc[[end_index]]
             diff_df['v_type_code'] = cur_type
             diff_dataset = diff_dataset.append(diff_df, ignore_index=True, sort=False)
-            # new start
-            start_index = index + 1
-            cur_type = row_type
+
+        # if (index + 1) % 5 == 0:
+        #     end_index = index
+        #     diff_df = X_train.loc[[start_index, end_index]].diff().loc[[end_index]]
+        #     diff_df['v_type_code'] = cur_type
+        #     diff_dataset = diff_dataset.append(diff_df, ignore_index=True, sort=False)
+        #     # new start
+        #     start_index = index + 1
+        #     cur_type = row_type
 
     diff_dataset['v_type_code'] = pd.to_numeric(diff_dataset['v_type_code'])
     return diff_dataset
@@ -50,7 +51,7 @@ def main():
     y_train = dataset[column[-1]]
 
     print('get diff dataset...')
-    diff_dataset = get_diff_dataset(dataset, X_train, type=3)
+    diff_dataset = get_diff_dataset(dataset, X_train)
 
     # Remove the useless fields.
     diff_dataset.drop(['v_type'], axis=1, inplace=True)
